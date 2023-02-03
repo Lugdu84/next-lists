@@ -22,9 +22,10 @@ export const useLists = () => {
   return lists
 }
 
-export const addList = (list: List) => {
+export const addList = (list: List): List => {
   myLists.push(list)
   lists$.next(myLists)
+  return list
 }
 
 export const removeList = (list: List) => {

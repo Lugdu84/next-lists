@@ -7,5 +7,6 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testPathIgnorePatterns: ['<rootDir>/cypress/'],
+  testEnvironment: 'jsdom',
 }
 module.exports = createJestConfig(customJestConfig)

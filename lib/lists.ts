@@ -6,9 +6,20 @@ export type List = {
   title: string
 }
 
-const myLists: List[] = []
+let myLists: List[] = []
 
 export const lists$ = new BehaviorSubject<List[]>(myLists)
+
+export const getLists = async () => {
+  try {
+    const response = await fetch('/api/lists')
+    const data = await response.json()
+    myLists = data
+    lists$.next(myLists)
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const useLists = () => {
   const [lists, setListsInHook] = useState<List[]>([])
@@ -24,8 +35,25 @@ export const useLists = () => {
 
 export const addList = (list: List): List => {
   myLists.push(list)
+
   lists$.next(myLists)
   return list
+}
+
+export const addListToPrisma = async (title: string) => {
+  try {
+    const response = await fetch('/api/lists', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(title),
+    })
+    const data = await response.json()
+    return data
+  } catch (error) {
+    return null
+  }
 }
 
 export const removeList = (list: List) => {

@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ListItem from './ListItem'
-import { useLists } from '../lib/lists'
+import { useLists, getLists } from '../lib/lists'
 import ListForm from './ListForm'
 
 function ListView() {
+  useEffect(() => {
+    getLists()
+  }, [])
+
   const lists = useLists()
+
   return (
     <div className="flex flex-col space-y-3">
       {lists.length > 0 ? (

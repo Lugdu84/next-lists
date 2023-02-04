@@ -1,17 +1,18 @@
 import React from 'react'
 // eslint-disable-next-line import/no-unresolved
-import { addList } from '@/lib/lists'
+import { addList, addListToPrisma } from '@/lib/lists'
 
 function ListForm() {
   const [title, setTitle] = React.useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const newList = {
-      id: Date.now(),
-      title,
-    }
-    addList(newList)
+    addListToPrisma(title).then((response) =>
+      addList({
+        id: response.id,
+        title: response.title,
+      })
+    )
     setTitle('')
   }
 

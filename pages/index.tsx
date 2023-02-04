@@ -1,5 +1,6 @@
+/* eslint-disable import/no-unresolved */
 import Head from 'next/head'
-// eslint-disable-next-line import/no-unresolved
+
 import ListView from '@/components/ListView'
 
 export default function Home() {

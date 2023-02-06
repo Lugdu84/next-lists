@@ -9,7 +9,8 @@ function ListForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addListToPrisma(title, session?.user?.id).then((response) =>
+    if (!session) return
+    addListToPrisma(title, session.userId).then((response) =>
       addList({
         id: response.id,
         title: response.title,

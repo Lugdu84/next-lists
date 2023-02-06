@@ -13,7 +13,7 @@ interface Props {
 export default function Home({ userId }: Props) {
   const { data: session } = useSession()
   if (userId && session) {
-    session.user.id = userId
+    session.userId = userId
     getLists(userId)
   }
   return (

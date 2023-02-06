@@ -1,13 +1,15 @@
 import React from 'react'
 // eslint-disable-next-line import/no-unresolved
+import { useSession } from 'next-auth/react'
 import { addList, addListToPrisma } from '@/lib/lists'
 
 function ListForm() {
+  const { data: session } = useSession()
   const [title, setTitle] = React.useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addListToPrisma(title).then((response) =>
+    addListToPrisma(title, session?.user?.id).then((response) =>
       addList({
         id: response.id,
         title: response.title,

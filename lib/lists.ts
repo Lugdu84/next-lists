@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs'
 import { useEffect, useState } from 'react'
 
 export type List = {
-  id: number
+  id: string
   title: string
 }
 
@@ -10,10 +10,11 @@ let myLists: List[] = []
 
 export const lists$ = new BehaviorSubject<List[]>(myLists)
 
-export const getLists = async () => {
+export const getLists = async (userId: string) => {
   try {
-    const response = await fetch('/api/lists')
+    const response = await fetch(`http://localhost:3000/api/lists/${userId}`)
     const data = await response.json()
+    console.log('data in getLists', data)
     myLists = data
     lists$.next(myLists)
   } catch (error) {
@@ -40,14 +41,14 @@ export const addList = (list: List): List => {
   return list
 }
 
-export const addListToPrisma = async (title: string) => {
+export const addListToPrisma = async (title: string, userId: string) => {
   try {
     const response = await fetch('/api/lists', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(title),
+      body: JSON.stringify({ title, userId }),
     })
     const data = await response.json()
     return data
@@ -61,5 +62,18 @@ export const removeList = (list: List) => {
   if (index !== -1) {
     myLists.splice(index, 1)
     lists$.next(myLists)
+  }
+}
+
+export const removeListFromPrisma = async (id: string) => {
+  try {
+    const response = await fetch(`/api/lists/${id}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) {
+      throw new Error('Something went wrong')
+    }
+  } catch (error) {
+    console.error(error)
   }
 }

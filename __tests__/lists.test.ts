@@ -2,7 +2,7 @@ import { it, expect, describe, beforeEach } from '@jest/globals'
 import { act, renderHook } from '@testing-library/react'
 import { addList, useLists, lists$, removeList } from '../lib/lists'
 
-const list = { id: 1, title: 'Ma liste' }
+const list = { id: '1', title: 'Ma liste' }
 
 describe('CRUD sur une liste', () => {
   beforeEach(() => {
@@ -29,33 +29,33 @@ describe('CRUD sur une liste', () => {
     const { result } = renderHook(() => useLists())
     act(() => {
       addList(list)
-      addList({ id: 2, title: 'Ma liste 2' })
+      addList({ id: '2', title: 'Ma liste 2' })
     })
     expect(result.current).toStrictEqual([
-      { id: 1, title: 'Ma liste' },
-      { id: 2, title: 'Ma liste 2' },
+      { id: '1', title: 'Ma liste' },
+      { id: '2', title: 'Ma liste 2' },
     ])
     act(() => {
-      addList({ id: 3, title: 'Ma liste 3' })
+      addList({ id: '3', title: 'Ma liste 3' })
     })
     expect(result.current).toStrictEqual([
       list,
-      { id: 2, title: 'Ma liste 2' },
-      { id: 3, title: 'Ma liste 3' },
+      { id: '2', title: 'Ma liste 2' },
+      { id: '3', title: 'Ma liste 3' },
     ])
     act(() => {
       removeList(list)
     })
     expect(result.current).toStrictEqual([
-      { id: 2, title: 'Ma liste 2' },
-      { id: 3, title: 'Ma liste 3' },
+      { id: '2', title: 'Ma liste 2' },
+      { id: '3', title: 'Ma liste 3' },
     ])
     act(() => {
-      removeList({ id: 2, title: 'Ma liste 2' })
+      removeList({ id: '2', title: 'Ma liste 2' })
     })
-    expect(result.current).toStrictEqual([{ id: 3, title: 'Ma liste 3' }])
+    expect(result.current).toStrictEqual([{ id: '3', title: 'Ma liste 3' }])
     act(() => {
-      removeList({ id: 3, title: 'Ma liste 3' })
+      removeList({ id: '3', title: 'Ma liste 3' })
     })
     expect(result.current).toStrictEqual([])
   })
@@ -66,7 +66,7 @@ describe('CRUD sur une liste', () => {
     })
     expect(result.current).toStrictEqual([list])
     act(() => {
-      removeList({ id: 2, title: 'Ma liste 2' })
+      removeList({ id: '2', title: 'Ma liste 2' })
     })
     expect(result.current).toStrictEqual([list])
   })

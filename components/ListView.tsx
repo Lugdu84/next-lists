@@ -1,17 +1,8 @@
-import React, { useEffect } from 'react'
-import { useSession } from 'next-auth/react'
 import ListItem from './ListItem'
-import { useLists, getLists } from '../lib/lists'
+import { useLists } from '../lib/lists'
 import ListForm from './ListForm'
 
 function ListView() {
-  const { data: session } = useSession()
-  // useEffect(() => {
-  //   if (session) {
-  //     getLists()
-  //   }
-  // }, [session])
-
   const lists = useLists()
 
   return (

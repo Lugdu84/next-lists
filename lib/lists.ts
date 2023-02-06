@@ -14,7 +14,6 @@ export const getLists = async (userId: string) => {
   try {
     const response = await fetch(`http://localhost:3000/api/lists/${userId}`)
     const data = await response.json()
-    console.log('data in getLists', data)
     myLists = data
     lists$.next(myLists)
   } catch (error) {

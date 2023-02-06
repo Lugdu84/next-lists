@@ -12,8 +12,6 @@ interface Props {
 
 export default function Home({ userId }: Props) {
   const { data: session } = useSession()
-  console.log('userId', userId)
-  console.log('session', session)
   if (userId && session) {
     session.user.id = userId
     getLists(userId)
@@ -50,14 +48,14 @@ export const getServerSideProps = async (
       sessionToken: context.req.cookies['next-auth.session-token'],
     },
   })
-  const profile = await prisma.user.findFirst({
-    where: {
-      id: user?.userId,
-    },
-    include: {
-      lists: true,
-    },
-  })
+  // const listsForUser = await prisma.user.findFirst({
+  //   where: {
+  //     id: user?.userId,
+  //   },
+  //   include: {
+  //     lists: true,
+  //   },
+  // })
   return {
     props: {
       userId: user?.userId || null,

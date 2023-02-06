@@ -1,6 +1,6 @@
 import React from 'react'
-// eslint-disable-next-line import/no-unresolved
 import { useSession } from 'next-auth/react'
+// eslint-disable-next-line import/no-unresolved
 import { addList, addListToPrisma } from '@/lib/lists'
 
 function ListForm() {

@@ -6,7 +6,6 @@ import prisma from '@/lib/prisma'
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req
   const { id } = req.query
-  console.log('id', id)
   switch (method) {
     case 'GET':
       try {
